@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+DE+Grund:wght@100..400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playwrite+DE+Grund:wght@100..400&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Playwrite+DE+Grund", "Inter", sans-serif;
+}
+
+/*classe root é html*/
+:root {
+    font-size: 16px;
+}
+
+body {
+    background-color: rgb(195, 255, 255);
+    color: #f2f2f2;
+}
+
+.container {
+    width: 100%;
+    height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login {
+    width: 100%;
+    max-width: 330px;
+    background-color: rgb(94, 194, 160);
+    border-radius: 5px;
+    padding: 20px;
+    /*OCULTAR TELA DE LOGIN PARA EDITAR O CHAT*/
+    display: none;
+}
+
+.login >h2 {
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.login__form{ 
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.login__input{
+    border: none;
+    padding: 15px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    background-color: rgb(94, 173, 147);
+    color: #f2f2f2;
+    outline: none;
+    border-radius: 10px;
+}
+
+/*Cor ao selecionar a caixa do nick*/
+.login__input:focus{
+    outline: 2px solid #f2f2f2;
+}
+/*Cor do texto dentro da caixa do nick*/
+.login__input::placeholder{
+    color: rgb(119, 219, 186);
+}
+
+.login__button{
+    border: none;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    background-color: #ddd;
+    cursor: pointer;
+    color: #121212;
+}
+/*Cor ao passar o mouse no botão de entrar*/
+.login__button:hover{
+    background-color: #fff;
+}
