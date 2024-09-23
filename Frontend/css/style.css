@@ -32,8 +32,6 @@ body {
     background-color: rgb(94, 194, 160);
     border-radius: 5px;
     padding: 20px;
-    /*OCULTAR TELA DE LOGIN PARA EDITAR O CHAT*/
-    display: none;
 }
 
 .login >h2 {
@@ -88,7 +86,7 @@ body {
     background-color: rgb(94, 173, 147);
     width: 100%;
     height: 100%;
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: space-between;
 }
@@ -96,6 +94,10 @@ body {
 .chat__messages {
     background-color: rgb(174, 230, 211);
     flex-grow: 1;
+    padding: 30px 30px 90px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }
 
 .chat__form {
@@ -119,4 +121,54 @@ body {
     outline: none;
     color: rgb(22, 95, 71) ;
     font-size: 1rem;
+}
+
+.chat__button {
+    border: none;
+    background: none;
+    color: #f2f2f2;
+    cursor: pointer;
+}
+
+.chat__button > span {
+    font-size: 1.8rem;
+}
+
+.chat__messages > div {
+    padding: 10px;
+    width: 100%;
+    max-width: 250px;
+    font-size: 0.9rem;
+    font-weight: 500px;
+    margin-bottom: 15px;
+    line-height: 22px;
+
+}
+
+.message--self {
+    background-color: rgb(198, 253, 235);
+    color: #121212;
+    border-radius: 10px 10px 0 10px;
+    align-self: flex-end;
+}
+
+.your--nic{
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 700;
+    color: rgb(0, 56, 56);
+}
+
+.message--other {
+    background-color: rgb(198, 253, 235);
+    color: #121212;
+    border-radius: 10px 10px 10px 0;
+    align-self: flex-start;
+}
+
+.message--sender{
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 700;
+    color: rgb(3, 97, 97);
 }
