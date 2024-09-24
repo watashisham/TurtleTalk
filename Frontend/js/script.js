@@ -1,3 +1,5 @@
+const { json } = require("stream/consumers")
+
 //Login Elements
 const login = document.querySelector(".login")
 const loginForm = login.querySelector(".login__form")
@@ -26,7 +28,12 @@ const getRandomColor = () =>{
     return colors[randomIndex]
 }
 
-const handleSubmit = (event) =>{
+const processMessage = ({ data }) => {
+   // const { userId, userName, userColor, content } = JSON.parse(data)
+   console.log(JSON.parse(data))
+}
+
+const handleLogin = (event) =>{
     event.preventDefault()
 
     user.id = crypto.randomUUID()
@@ -37,10 +44,25 @@ const handleSubmit = (event) =>{
     chat.style.display = "flex"
 
     websocket = new WebSocket("ws://localhost:8080")
-    websocket.send('Usuário: ${user.name} entrou no chat!')
-
-    console.log(user)
-    
+    websocket.onmessage = processMessage
+  
 }
 
-loginForm.addEventListener("submit", handleSubmit)
+const sendMessage = (event) => {
+    event.preventDefault()
+
+    const message = {
+        userId: user.id,
+        userName: user.name,
+        userColor: user.color,
+        content: chatInput.value
+
+    }
+
+    websocket.send(JSON.stringify(message))
+    chatInput.value = ""
+
+}
+
+loginForm.addEventListener("submit", handleLogin)
+chatForm.addEventListener("submit", sendMessage)
