@@ -14,7 +14,7 @@ avatarSelection.addEventListener('mousedown', (event) => {
 // Atualiza o avatar selecionado ao clicar em uma miniatura
 avatarOptions.forEach(option => {
     option.addEventListener('click', function () {
-      selectedAvatar.src = this.src;
+        selectedAvatar.src = this.src;
     });
 });
 
@@ -117,7 +117,9 @@ const handleLogin = (event) => {
     login.style.display = "none";
     chat.style.display = "flex";
 
-    websocket = new WebSocket("wss://turtletalk.onrender.com");
+    // websocket = new WebSocket("wss://turtletalk.onrender.com");
+    websocket = new WebSocket("ws://localhost:8080");
+
     websocket.onmessage = processMessage;
 
     // Envia uma mensagem de login ao servidor
@@ -125,22 +127,37 @@ const handleLogin = (event) => {
         websocket.send(JSON.stringify({ type: 'login', nickname: user.name }));
         websocket.send(JSON.stringify({ type: 'getOnlineCount' })); // Solicita contagem online
     };
+
+    // Configuração para lidar com erros
+    websocket.onerror = (error) => {
+        console.error("Erro no WebSocket:", error);
+    };
+
+    // Configuração para lidar com fechamento da conexão
+    websocket.onclose = () => {
+        console.log("Conexão WebSocket fechada.");
+    };
 };
 
 // Envia mensagem no chat
 const sendMessage = (event) => {
     event.preventDefault();
 
-    const message = {
-        userId: user.id,
-        userName: user.name,
-        userColor: user.color,
-        content: chatInput.value,
-        userAvatar: user.avatar // Adiciona o avatar à mensagem
-    };
+    // Verifica se a conexão WebSocket está aberta antes de enviar
+    if (websocket.readyState === WebSocket.OPEN) {
+        const message = {
+            userId: user.id,
+            userName: user.name,
+            userColor: user.color,
+            content: chatInput.value,
+            userAvatar: user.avatar // Adiciona o avatar à mensagem
+        };
 
-    websocket.send(JSON.stringify(message));
-    chatInput.value = ""; // Limpa a entrada após o envio
+        websocket.send(JSON.stringify(message));
+        chatInput.value = ""; // Limpa a entrada após o envio
+    } else {
+        console.error("WebSocket não está aberto. Estado atual:", websocket.readyState);
+    }
 };
 
 // Event Listeners

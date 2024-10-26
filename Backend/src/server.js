@@ -12,12 +12,17 @@ wss.on("connection", (ws) => {
     atualizarContagem(onlineCount); // Atualiza a contagem para todos os clientes
 
     ws.on("message", (data) => {
-        // Envia a mensagem recebida a todos os clientes conectados
-        wss.clients.forEach((client) => {
-            if (client.readyState === WebSocket.OPEN) {
-                client.send(data.toString());
-            }
-        });
+        // Adiciona verificação para mensagens recebidas
+        if (data && typeof data === 'string') {
+            // Envia a mensagem recebida a todos os clientes conectados
+            wss.clients.forEach((client) => {
+                if (client.readyState === WebSocket.OPEN) {
+                    client.send(data);
+                }
+            });
+        } else {
+            console.error("Mensagem recebida inválida:", data);
+        }
     });
 
     ws.on("close", () => {
@@ -25,7 +30,9 @@ wss.on("connection", (ws) => {
         atualizarContagem(onlineCount); // Atualiza a contagem para todos os clientes
     });
 
-    ws.on("error", console.error); // Log de erros
+    ws.on("error", (error) => {
+        console.error("Erro no WebSocket:", error); // Log de erros
+    });
 
     ws.send("Mensagem enviada pelo servidor."); // Envia uma mensagem ao novo cliente
 
