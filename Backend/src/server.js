@@ -1,40 +1,42 @@
-const {WebSocketServer} = require("ws")
-const dotenv = require("dotenv")
+const { WebSocketServer } = require("ws");
+const dotenv = require("dotenv");
 
-dotenv.config()
+dotenv.config();
 
-const wss = new WebSocketServer({ port: process.env.PORT || 8080 })
+const wss = new WebSocketServer({ port: process.env.PORT || 8080 });
 
-wss.on("connection", (ws) =>{
-    ws.on("error", console.error)
+let onlineCount = 0; // Contagem de usuários online
 
-    ws.send("Mensagem enviada pelo servidor.")
+wss.on("connection", (ws) => {
+    onlineCount++; // Incrementa a contagem de usuários online
+    atualizarContagem(onlineCount); // Atualiza a contagem para todos os clientes
 
     ws.on("message", (data) => {
-        wss.clients.forEach((client) => client.send(data.toString()))
-        
-    })
+        // Envia a mensagem recebida a todos os clientes conectados
+        wss.clients.forEach((client) => {
+            if (client.readyState === WebSocket.OPEN) {
+                client.send(data.toString());
+            }
+        });
+    });
 
-    console.log("Client connected")
-})
-
-// Contagem de pessoas online
-let onlineCount = 0;
-
-wss.on('connection', (ws) => {
-    onlineCount++;
-    atualizarContagem(onlineCount); // Atualiza a contagem quando um novo cliente se conecta
-
-    ws.on('close', () => {
-        onlineCount--; // Decrementa a contagem quando um cliente se desconecta
+    ws.on("close", () => {
+        onlineCount--; // Decrementa a contagem de usuários online
         atualizarContagem(onlineCount); // Atualiza a contagem para todos os clientes
     });
 
-    function atualizarContagem(count) {
-        wss.clients.forEach((client) => {
-            if (client.readyState === WebSocket.OPEN) {
-                client.send(JSON.stringify({ type: 'onlineCountUpdate', count })); // Envia a contagem atualizada
-            }
-        });
-    }
+    ws.on("error", console.error); // Log de erros
+
+    ws.send("Mensagem enviada pelo servidor."); // Envia uma mensagem ao novo cliente
+
+    console.log("Client connected");
 });
+
+// Função para atualizar a contagem de usuários online
+function atualizarContagem(count) {
+    wss.clients.forEach((client) => {
+        if (client.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify({ type: 'onlineCountUpdate', count })); // Envia a contagem atualizada
+        }
+    });
+}
