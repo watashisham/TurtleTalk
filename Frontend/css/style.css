@@ -26,6 +26,58 @@ body {
     justify-content: center;
 }
 
+/*Início ed. Avatar*/
+.avatar_selection {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+
+    outline: none;
+}
+
+#selected_avatar {
+    border-radius: 20%;
+
+    outline: none; /* Remove o contorno ao focar no avatar */
+    border: none; /* Remove qualquer borda */
+    user-select: none; /* Impede seleção do avatar */
+    pointer-events: none; /* Impede que o foco seja aplicado na imagem */
+
+    position: relative;
+    display: flex;
+    justify-content: center; /* Centraliza o avatar horizontalmente */
+    align-items: center; /* Centraliza o avatar verticalmente */
+    cursor: pointer;
+    width: 150px; /* Define uma largura fixa para a área de seleção do avatar */
+    height: 150px; /* Define uma altura fixa para a área de seleção do avatar */
+    margin: 0 auto; /* Garante que o contêiner também esteja centralizado */
+}
+
+/* Menu dropdown escondido inicialmente */
+.avatar_dropdown {
+    display: none;
+    position: absolute;
+    top: 60px; /* Ajuste conforme necessário */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.avatar_option {
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 20%;
+}
+
+/* Mostra o menu dropdown ao clicar no avatar */
+.avatar_selection:hover .avatar_dropdown {
+display: block;
+}/*Fim ed. Avatar*/
+
 .login {
     width: 100%;
     max-width: 330px;
@@ -167,9 +219,25 @@ body {
 }
 
 .message--sender{
-    display: block;
-    margin-bottom: 5px;
     font-weight: 700;
     color: rgb(3, 97, 97);
- 
+    display: inline-block;
+    vertical-align: middle;
    }
+
+.message--header {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espaçamento entre avatar e nickname */
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 20%;
+}
+
+.message--self .message--header,
+.message--other .message--header {
+    justify-content: flex-start; /* Alinha ambos os headers à esquerda */
+}
