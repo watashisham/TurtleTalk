@@ -151,6 +151,15 @@ display: block;
     background-color: #fff;
 }
 
+/*Contagem de pessoas online*/
+.chat__header {
+    background-color: rgb(85, 194, 158);
+    padding: 10px;
+    color: #f2f2f2;
+    font-weight: bold;
+    text-align: center;
+}
+
 /* Contêiner do chat com direção de coluna e display inicial oculto */
 .chat {
     background-color: rgb(94, 173, 147);

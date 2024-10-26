@@ -17,3 +17,24 @@ wss.on("connection", (ws) =>{
 
     console.log("Client connected")
 })
+
+// Contagem de pessoas online
+let onlineCount = 0;
+
+wss.on('connection', (ws) => {
+    onlineCount++;
+    atualizarContagem(onlineCount); // Atualiza a contagem quando um novo cliente se conecta
+
+    ws.on('close', () => {
+        onlineCount--; // Decrementa a contagem quando um cliente se desconecta
+        atualizarContagem(onlineCount); // Atualiza a contagem para todos os clientes
+    });
+
+    function atualizarContagem(count) {
+        wss.clients.forEach((client) => {
+            if (client.readyState === WebSocket.OPEN) {
+                client.send(JSON.stringify({ type: 'onlineCountUpdate', count })); // Envia a contagem atualizada
+            }
+        });
+    }
+});
