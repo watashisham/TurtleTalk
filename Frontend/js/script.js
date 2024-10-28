@@ -117,8 +117,8 @@ const handleLogin = (event) => {
     login.style.display = "none";
     chat.style.display = "flex";
 
-    websocket = new WebSocket("ws://turtletalk.onrender.com");
-    //websocket = new WebSocket("ws://localhost:8080");
+    websocket = new WebSocket("wss://turtletalk.onrender.com");
+    //websocket = new WebSocket("wss://localhost:8080");
 
     websocket.onmessage = processMessage;
 
