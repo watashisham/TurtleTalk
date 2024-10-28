@@ -117,8 +117,8 @@ const handleLogin = (event) => {
     login.style.display = "none";
     chat.style.display = "flex";
 
-    websocket = new WebSocket("wss://turtletalk.onrender.com");
-    //websocket = new WebSocket("ws://localhost:8080");
+    //websocket = new WebSocket("wss://turtletalk.onrender.com");
+    websocket = new WebSocket("ws://localhost:8080");
 
     websocket.onmessage = processMessage;
 
@@ -146,6 +146,7 @@ const sendMessage = (event) => {
     // Verifica se a conexão WebSocket está aberta antes de enviar
     if (websocket.readyState === WebSocket.OPEN) {
         const message = {
+            type: 'message', // Define o tipo como 'message'
             userId: user.id,
             userName: user.name,
             userColor: user.color,
