@@ -1,6 +1,8 @@
+/* Importa fontes externas para uso no projeto */
 @import url('https://fonts.googleapis.com/css2?family=Playwrite+DE+Grund:wght@100..400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playwrite+DE+Grund:wght@100..400&display=swap');
 
+/* Remove margens e preenchimentos padrão de todos os elementos, define o modo de box-sizing e aplica a fonte padrão */
 * {
     margin: 0;
     padding: 0;
@@ -8,16 +10,18 @@
     font-family: "Playwrite+DE+Grund", "Inter", sans-serif;
 }
 
-/*classe root é html*/
+/*classe root é html - Define o tamanho de fonte base do documento */
 :root {
     font-size: 16px;
 }
 
+/* Estilo para o corpo da página, com cor de fundo e de texto */
 body {
     background-color: rgb(195, 255, 255);
     color: #f2f2f2;
 }
 
+/* Centraliza o conteúdo da página vertical e horizontalmente */
 .container {
     width: 100%;
     height: 100dvh;
@@ -26,6 +30,63 @@ body {
     justify-content: center;
 }
 
+/*Início ed. Avatar*/
+/* Configuração da área de seleção de avatar */
+.avatar_selection {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+
+    outline: none;
+}
+
+/* Estiliza o avatar selecionado com bordas arredondadas e centralização */
+#selected_avatar {
+    border-radius: 20%;
+
+    outline: none; /* Remove o contorno ao focar no avatar */
+    border: none; /* Remove qualquer borda */
+    user-select: none; /* Impede seleção do avatar */
+    pointer-events: none; /* Impede que o foco seja aplicado na imagem */
+
+    position: relative;
+    display: flex;
+    justify-content: center; /* Centraliza o avatar horizontalmente */
+    align-items: center; /* Centraliza o avatar verticalmente */
+    cursor: pointer;
+    width: 150px; /* Define uma largura fixa para a área de seleção do avatar */
+    height: 150px; /* Define uma altura fixa para a área de seleção do avatar */
+    margin: 0 auto; /* Garante que o contêiner também esteja centralizado */
+}
+
+/* Estiliza o menu dropdown para seleção de avatar */
+.avatar_dropdown {
+    display: none;
+    position: absolute;
+    top: 60px; /* Ajuste conforme necessário */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+/* Estilo de cada opção de avatar no menu */
+.avatar_option {
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 20%;
+}
+
+/* Mostra o menu dropdown ao passar o mouse sobre a seleção de avatar */
+.avatar_selection:hover .avatar_dropdown {
+display: block;
+}
+/*Fim ed. Avatar*/
+
+/* Estiliza o contêiner do formulário de login */
 .login {
     width: 100%;
     max-width: 330px;
@@ -34,6 +95,7 @@ body {
     padding: 20px;
 }
 
+/* Estilo para o título do formulário de login */
 .login >h2 {
     text-align: center;
     font-weight: 600;
@@ -41,12 +103,14 @@ body {
     margin-bottom: 20px;
 }
 
+/* Estiliza o formulário de login com espaçamento entre os itens */
 .login__form{ 
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
+/* Estilo para o campo de entrada do formulário de login */
 .login__input{
     border: none;
     padding: 15px;
@@ -58,15 +122,19 @@ body {
     border-radius: 10px;
 }
 
+/* Define o contorno ao focar no campo de entrada */
 /*Cor ao selecionar a caixa do nick*/
 .login__input:focus{
     outline: 2px solid #f2f2f2;
 }
+
+/* Cor do placeholder no campo de entrada */
 /*Cor do texto dentro da caixa do nick*/
 .login__input::placeholder{
     color: rgb(119, 219, 186);
 }
 
+/* Estilo para o botão de login */
 .login__button{
     border: none;
     padding: 15px;
@@ -77,11 +145,22 @@ body {
     cursor: pointer;
     color: #121212;
 }
+
 /*Cor ao passar o mouse no botão de entrar*/
 .login__button:hover{
     background-color: #fff;
 }
 
+/*Contagem de pessoas online*/
+.chat__header {
+    background-color: rgb(85, 194, 158);
+    padding: 10px;
+    color: #f2f2f2;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Contêiner do chat com direção de coluna e display inicial oculto */
 .chat {
     background-color: rgb(94, 173, 147);
     width: 100%;
@@ -91,6 +170,7 @@ body {
     justify-content: space-between;
 }
 
+/* Área de mensagens do chat com flex para alinhar as mensagens no final */
 .chat__messages {
     background-color: rgb(174, 230, 211);
     flex-grow: 1;
@@ -100,6 +180,7 @@ body {
     justify-content: flex-end;
 }
 
+/* Formulário para enviar mensagens, fixado na parte inferior */
 .chat__form {
     background-color:  rgb(85, 194, 158);
     padding: 15px 20px;
@@ -112,6 +193,7 @@ body {
     width: 100%;
 }
 
+/* Estilo para o campo de entrada de mensagens */
 .chat__input {
     border: none;
     padding: 15px;
@@ -121,8 +203,11 @@ body {
     outline: none;
     color: rgb(22, 95, 71) ;
     font-size: 1rem;
+    word-wrap: break-word; /* Quebra automaticamente quando o texto ultrapassa a largura */
+    overflow: hidden; /* Impede o overflow do texto */
 }
 
+/* Estilo do botão para enviar mensagem */
 .chat__button {
     border: none;
     background: none;
@@ -130,21 +215,26 @@ body {
     cursor: pointer;
 }
 
+/* Tamanho do ícone no botão de enviar */
 .chat__button > span {
     font-size: 1.8rem;
 }
 
+/* Estilo individual das mensagens no chat */
 .chat__messages > div {
     padding: 10px;
     width: 100%;
-    max-width: 250px;
+    max-width: 500px;
     font-size: 0.9rem;
     font-weight: 500px;
     margin-bottom: 15px;
     line-height: 22px;
+    word-wrap: break-word; /* Quebra o texto ao ultrapassar a largura */
+    overflow: hidden; /* Oculta qualquer overflow */
 
 }
 
+/* Estiliza a mensagem enviada pelo usuário (balão alinhado à direita) */
 .message--self {
     background-color: rgb(198, 253, 235);
     color: #121212;
@@ -152,6 +242,7 @@ body {
     align-self: flex-end;
 }
 
+/* Estilo para o apelido do usuário no chat */
 .your--nic{
     display: block;
     margin-bottom: 5px;
@@ -159,6 +250,7 @@ body {
     color: rgb(0, 56, 56);
 }
 
+/* Estilo da mensagem de outro usuário no chat (balão alinhado à esquerda) */
 .message--other {
     background-color: rgb(198, 253, 235);
     color: #121212;
@@ -166,10 +258,30 @@ body {
     align-self: flex-start;
 }
 
+/* Estilo para o nome do remetente */
 .message--sender{
-    display: block;
-    margin-bottom: 5px;
     font-weight: 700;
     color: rgb(3, 97, 97);
- 
+    display: inline-block;
+    vertical-align: middle;
    }
+
+/* Cabeçalho da mensagem com avatar e nome do remetente */
+.message--header {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espaçamento entre avatar e nickname */
+}
+
+/* Estilo para o avatar do usuário */
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 20%;
+}
+
+/* Alinha o cabeçalho das mensagens de ambos os tipos à esquerda */
+.message--self .message--header,
+.message--other .message--header {
+    justify-content: flex-start; /* Alinha ambos os headers à esquerda */
+}
