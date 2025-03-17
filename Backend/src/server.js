@@ -113,7 +113,9 @@ wss.on("connection", (ws) => {
         console.error("Erro no WebSocket:", error); // Log de erros
     });
 
-    ws.send("Mensagem enviada pelo servidor."); // Envia uma mensagem ao novo cliente
+    //ws.send("Mensagem enviada pelo servidor."); 
+    ws.send(JSON.stringify({ type: "message", text: "Mensagem enviada pelo servidor." })); // Envia uma mensagem ao novo cliente
+
 
     console.log("Client connected");
 });
