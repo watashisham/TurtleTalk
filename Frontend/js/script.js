@@ -42,30 +42,41 @@ const processMessage = ({ data }) => {
     console.log("Mensagem recebida do servidor:", data);
     let parsedData;
     try {
-        parsedData = JSON.parse(data);
+        parsedData = JSON.parse(data);  // Tenta analisar a mensagem como JSON
     } catch (error) {
         console.error("Erro ao analisar a mensagem:", error);
-        return;
+        return;  // Sai se houver erro na análise
     }
-    if (!parsedData.type) {
+
+    if (!parsedData || !parsedData.type) {
         console.error("Mensagem recebida sem tipo:", parsedData);
         return;
     }
+
+    // Verifica o tipo da mensagem
     if (parsedData.type === "onlineCountUpdate") {
         console.log(`Usuários online: ${parsedData.count}`);
         return;
     }
+
+    // Verifica se todos os dados necessários estão presentes
     const { userId, userName, userColor, content, userAvatar } = parsedData;
+
     if (!userId || !userName || !content || !userAvatar) {
         console.error("Dados incompletos recebidos:", parsedData);
         return;
     }
+
+    // Criação da mensagem
     const message = userId === user.id 
         ? createMessageElement(content, user.name, user.color, user.avatar, true)
         : createMessageElement(content, userName, userColor, userAvatar, false);
+    
+    // Adiciona a mensagem ao chat e rola a tela para exibi-la
     chatMessages.appendChild(message);
     scrollScreen();
 };
+
 
 // Função de login
 const handleLogin = (event) => {
