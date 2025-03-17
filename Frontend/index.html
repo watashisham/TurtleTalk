@@ -28,16 +28,12 @@
                         <img src="images/Avatar_6.png" alt="Avatar6" class="avatar_option" width="50" height="50">
                         <img src="images/Avatar_7.png" alt="Avatar7" class="avatar_option" width="50" height="50">
                     </div>
-
                 </div>
-
-
-                <input type="text" class="login__input" placeholder="Seu nickname" maxlength="25" required>
+            
+                <!-- Corrigido: Adicionado id e name ao input -->
+                <input type="text" id="nickname" name="nickname" class="login__input" placeholder="Seu nickname" maxlength="25" required>
                 <button type="submit" class="login__button">Entrar</button>
-
-
             </form>
-
         </section>
 
         <section class="chat">
@@ -46,26 +42,14 @@
                 <span id="onlineCount">0</span> pessoas online
             </div>
 
-            <section class="chat__messages">
+            <section class="chat__messages"></section>
 
-                <!-- <div class="message--self">
-                    <span class="message--self">Eu</span>
-                    Hello! World!
-                </div>
-                
-                <div class="message--other">
-                    <span class="message--sender">Maria da Silva</span>
-                    Boa noite!
-                </div> -->
-
-            </section>
-
+            <!-- Formulário de envio de mensagens movido para a seção correta -->
             <form class="chat__form">
-                <input type="text" class="chat__input" placeholder="Digite uma mensagem" required>
+                <input type="text" id="chat_message" name="chat_message" class="chat__input" placeholder="Digite uma mensagem" required>
                 <button type="submit" class="chat__button">
                     <span class="material-symbols-outlined">Send</span>
                 </button>
-
             </form>
 
         </section>
