@@ -72,7 +72,17 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-const wss = new WebSocketServer({ port: process.env.PORT || 8080 });
+//const wss = new WebSocketServer({ port: process.env.PORT || 8080 });
+
+//INSERIDO 17/03/2025
+const server = require("http").createServer();
+const wss = new WebSocketServer({ server });
+
+// Render exige que o servidor escute na porta fornecida por process.env.PORT
+server.listen(process.env.PORT || 8080, () => {
+    console.log(`Servidor rodando na porta ${process.env.PORT || 8080}`);
+});
+//------------------
 
 let onlineCount = 0; // Contagem de usuários online
 
